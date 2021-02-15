@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const bot = new Discord.Client();
 const token = "INSERT TOKEN HERE"
 const prefix = "+"
 const eightballresponses = [
@@ -24,12 +24,12 @@ const eightballresponses = [
 ]
 
 // STARTUP
-client.once('ready', () => {
-    console.log('Logged in as ' + client.user.tag);
+bot.once('ready', () => {
+    console.log('Logged in as ' + bot.user.tag);
 });
 
 // COMMAND
-client.on('message', async message => {
+bot.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).split(/ +/);
@@ -40,13 +40,13 @@ client.on('message', async message => {
 			message.channel.send('Please ask a question.')
 		} else {
 		let randomcolor = ((1 << 24) * Math.random() | 0).toString(16)
-		const AwnserEmbed = new Discord.MessageEmbed()
+		const AnswerEmbed = new Discord.MessageEmbed()
 			.addField(message.author.username + ' asked:', args.join(' '))
 			.addField("Answer:", (eightballresponses[Math.floor(Math.random() * eightballresponses.length)]))
 			.setColor(randomcolor)
-			message.channel.send(AwnserEmbed)
+			message.channel.send(AnswerEmbed)
 		}
     }
 });
 
-client.login(token);
+bot.login(token);
